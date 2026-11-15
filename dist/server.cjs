@@ -18105,6 +18105,7 @@ function toMessage(envelope) {
 }
 
 // src/network-session.ts
+var asWritten = (link) => link.replace(/[\\\s]/g, "");
 var NetworkSession = class {
   constructor(settings, view, limit, peerName, defaultOrigin) {
     this.settings = settings;
@@ -18138,14 +18139,21 @@ var NetworkSession = class {
    * it comes back to its own as a new peer.
    */
   async join(link) {
-    const network = link ? (0, import_invite_link.readInviteLink)(link, this.defaultOrigin) : this.settings.read();
+    const network = link ? (0, import_invite_link.readInviteLink)(asWritten(link), this.defaultOrigin) : this.settings.read();
     if (!network) {
       throw new Error(
         link ? "That is not an invite link" : "No network is saved: pass an invite link, or create a network"
       );
     }
     await this.depart();
-    await this.enter(network);
+    await this.enter(network).catch((error2) => {
+      if (link && error2.message.includes("Unknown invite")) {
+        throw new Error(
+          "The network does not know this invite. Pass the link exactly as the user wrote it, character for character; if it was, ask them to copy it again"
+        );
+      }
+      throw error2;
+    });
   }
   /** Leaves for this session; with `forget`, the sessions to come don't join either. */
   async leave(forget) {
@@ -18378,7 +18386,7 @@ function networkTools(session, view, inbox, events) {
   return [
     {
       name: "join_network",
-      description: "Connect this session to a Mozaik network. Pass the invite link the user was given; with no arguments the network saved on this machine is joined. The network is saved, so later sessions can join it without the link. A session that is already in a network leaves it first.",
+      description: "Connect this session to a Mozaik network. Pass the invite link exactly as the user wrote it, without correcting or retyping it; with no arguments the network saved on this machine is joined. The network is saved, so later sessions can join it without the link. A session that is already in a network leaves it first.",
       inputSchema: { type: "object", properties: { invite: { type: "string", description: "Invite link" } } },
       async call({ invite }) {
         await session.join(typeof invite === "string" ? invite : void 0);
@@ -18514,7 +18522,7 @@ async function main() {
     throw new Error("The Mozaik Network server needs Node 22 or newer");
   }
   const mcp = new Server(
-    { name: "mozaik-network", version: "0.1.0" },
+    { name: "mozaik-network", version: "0.1.1" },
     { capabilities: { tools: {} }, instructions: INSTRUCTIONS }
   );
   const settings = new NetworkSettings();

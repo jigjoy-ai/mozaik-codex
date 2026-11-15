@@ -34,7 +34,7 @@ async function main() {
 	}
 
 	const mcp = new Server(
-		{ name: "mozaik-network", version: "0.1.0" },
+		{ name: "mozaik-network", version: "0.1.1" },
 		{ capabilities: { tools: {} }, instructions: INSTRUCTIONS },
 	)
 

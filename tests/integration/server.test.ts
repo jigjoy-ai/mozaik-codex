@@ -223,6 +223,26 @@ describe("Codex on a Mozaik network", () => {
 		expect((await ana.call("list_peers")).text).toBe("Not in a network.")
 	})
 
+	test("a link whose underscore was escaped on its way to the user still lets the session in", async () => {
+		const ana = await session("ana@api", stateDir())
+		const link = (await ana.call("create_network", { name: "team" })).text.split("\n").pop()!
+		const marko = await session("marko@web", stateDir())
+
+		const joined = await marko.call("join_network", { invite: link.replace("#nt_", "//#nt\\_") })
+		expect(joined.failed).toBe(false)
+		expect(joined.text).toContain("ana@api")
+	})
+
+	test("a link with a wrong character is refused, and the session is told to pass it as it was written", async () => {
+		const ana = await session("ana@api", stateDir())
+		const link = (await ana.call("create_network", { name: "team" })).text.split("\n").pop()!
+		const marko = await session("marko@web", stateDir())
+
+		const refused = await marko.call("join_network", { invite: `${link.slice(0, -1)}${link.endsWith("A") ? "B" : "A"}` })
+		expect(refused.failed).toBe(true)
+		expect(refused.text).toContain("exactly as the user wrote it")
+	})
+
 	test("with waking on, an idle session has a note queued for its thread, and not the message", async () => {
 		const dir = mkdtempSync(join(tmpdir(), "mozaik-codex-"))
 		const out = join(dir, "argv.json")

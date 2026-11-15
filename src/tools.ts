@@ -39,7 +39,7 @@ export function networkTools(session: NetworkSession, view: NetworkView, inbox: 
 		{
 			name: "join_network",
 			description:
-				"Connect this session to a Mozaik network. Pass the invite link the user was given; with no arguments the network saved on this machine is joined. The network is saved, so later sessions can join it without the link. A session that is already in a network leaves it first.",
+				"Connect this session to a Mozaik network. Pass the invite link exactly as the user wrote it, without correcting or retyping it; with no arguments the network saved on this machine is joined. The network is saved, so later sessions can join it without the link. A session that is already in a network leaves it first.",
 			inputSchema: { type: "object", properties: { invite: { type: "string", description: "Invite link" } } },
 			async call({ invite }) {
 				await session.join(typeof invite === "string" ? invite : undefined)
