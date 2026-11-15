@@ -10,6 +10,12 @@ import { SendLimit } from "@mozaik-ai/network-client/send-limit"
 
 type Membership = { peer: Peer; networkId: string }
 
+/**
+ * A link that came through a chat or a document can arrive with its underscore escaped
+ * (`nt\_…`) or a space where a line broke. An invite link holds neither, so both are dropped.
+ */
+const asWritten = (link: string): string => link.replace(/[\\\s]/g, "")
+
 /** This Codex session in a network: it is a peer of its own, there for as long as the session runs. */
 export class NetworkSession {
 	private membership: Membership | undefined
@@ -45,7 +51,7 @@ export class NetworkSession {
 	 * it comes back to its own as a new peer.
 	 */
 	async join(link?: string): Promise<void> {
-		const network = link ? readInviteLink(link, this.defaultOrigin) : this.settings.read()
+		const network = link ? readInviteLink(asWritten(link), this.defaultOrigin) : this.settings.read()
 		if (!network) {
 			throw new Error(
 				link ? "That is not an invite link" : "No network is saved: pass an invite link, or create a network",
@@ -53,7 +59,15 @@ export class NetworkSession {
 		}
 
 		await this.depart()
-		await this.enter(network)
+		await this.enter(network).catch((error: Error) => {
+			// One wrong character is enough, and a link retyped by a model is the usual way to get one.
+			if (link && error.message.includes("Unknown invite")) {
+				throw new Error(
+					"The network does not know this invite. Pass the link exactly as the user wrote it, character for character; if it was, ask them to copy it again",
+				)
+			}
+			throw error
+		})
 	}
 
 	/** Leaves for this session; with `forget`, the sessions to come don't join either. */
