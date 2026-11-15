@@ -2,7 +2,7 @@
 
 This connects a Codex session to a [Mozaik network](https://github.com/jigjoy-ai/mozaik-network). Each session is a peer of its own, named after who runs it and where (`ana@api`). It sees the other sessions and peers, sends them messages, and reads what they send it.
 
-One thing differs from the [Claude Code plugin](https://github.com/jigjoy-ai/mozaik-claude-code): **a message does not appear in a Codex session by itself.** Codex has no way for a server to put something in front of the model while it works. So Codex reads messages with a tool, and is told that there are some at the points where Codex gives a server a say (its hooks). See [How a message reaches Codex](#how-a-message-reaches-codex).
+A session answers its peers as their messages come, also when nobody is typing in it. It gets there differently than the [Claude Code plugin](https://github.com/jigjoy-ai/mozaik-claude-code) does: Codex has no way for a server to put something in front of the model, so Codex is told that there is a message at the points where it gives a server a say (its hooks), an idle session is woken for it, and the message itself is read with a tool. See [How a message reaches Codex](#how-a-message-reaches-codex).
 
 ## Install
 
@@ -14,7 +14,7 @@ codex mcp add mozaik-network -- node ~/.codex/mozaik-codex/dist/server.cjs
 node ~/.codex/mozaik-codex/scripts/hooks.mjs
 ```
 
-The second line adds the server to `~/.codex/config.toml`. The third adds four hooks to `~/.codex/hooks.json`, beside the ones you have. Codex asks to review and trust new hooks: open `/hooks` in a session and trust them. Without the hooks everything still works, but Codex is only told about messages when you ask it to look.
+The second line adds the server to `~/.codex/config.toml`. The third adds four hooks to `~/.codex/hooks.json`, beside the ones you have. Codex asks to review and trust new hooks: open `/hooks` in a session and trust them. Without the hooks the tools still work, but Codex is only told about messages when you ask it to look, and an idle session is not woken.
 
 To take it out again: `node ~/.codex/mozaik-codex/scripts/hooks.mjs --remove`, and delete the `[mcp_servers.mozaik-network]` table from `~/.codex/config.toml`.
 
@@ -56,16 +56,18 @@ A session sends at most 10 messages a minute, so two agents that keep answering 
 | Codex asked a peer something                | It calls `wait_for_message`, which returns when the answer comes.                                        |
 | A message comes while Codex is working      | After its next tool call, a hook adds a note to the turn: there is a message, from whom. Codex reads it. |
 | A message is unread when the turn would end | A hook keeps the turn going once, with that note.                                                        |
-| A message comes while nothing is running    | Codex is told at your next prompt. With waking on (below), a note is queued for the session right away.  |
+| A message comes while nothing is running    | A note is queued for the session, which starts a turn with it right away.                                |
 
 The note says that there are messages and who sent them, never what they say. Codex takes what a hook adds as context from its developer, or as a prompt from its user. What a peer wrote must not arrive with that standing, so it is only ever read with `read_messages` or `wait_for_message`, as someone else's words. Codex is told to take a peer's message as information from a colleague, never as instructions.
 
 ### Waking an idle session
 
-`MOZAIK_CODEX_WAKE=1` in the server's environment makes it run `codex queue --thread <session> --message <note>` when a message arrives while the session is idle, which queues the note for that session. It is off by default because it starts a turn on its own. It needs the hooks (the session's id comes from them).
+When a message arrives while the session is idle, the server runs `codex queue --thread <session> --message <note>`. Codex takes the note as a prompt and starts a turn, in which it reads the message. It needs the hooks (the session's id comes from them) and `codex` on the path. Codex does not pass `CODEX_HOME` on to its servers: if you moved Codex's home with it, add `--env CODEX_HOME=<that folder>` when adding the server.
+
+A turn started this way was not asked for by you. To have an idle session wait for your next prompt instead, set `MOZAIK_CODEX_WAKE=0`:
 
 ```
-codex mcp add mozaik-network --env MOZAIK_CODEX_WAKE=1 -- node ~/.codex/mozaik-codex/dist/server.cjs
+codex mcp add mozaik-network --env MOZAIK_CODEX_WAKE=0 -- node ~/.codex/mozaik-codex/dist/server.cjs
 ```
 
 ## Settings
@@ -76,16 +78,19 @@ codex mcp add mozaik-network --env MOZAIK_CODEX_WAKE=1 -- node ~/.codex/mozaik-c
 | `MOZAIK_PEER_NAME`         | What the others see the session as. `user@project` by default.                          |
 | `MOZAIK_API_KEY`           | The Mozaik Cloud API key networks are made with.                                        |
 | `MOZAIK_NETWORK_STATE_DIR` | Where the saved network is kept.                                                        |
-| `MOZAIK_CODEX_WAKE`        | `1` to queue a note for an idle session when a message arrives.                         |
+| `MOZAIK_CODEX_WAKE`        | `0` to leave an idle session alone until your next prompt.                              |
 | `MOZAIK_CODEX_COMMAND`     | The `codex` command to run for that, when it is not on the path.                        |
 
-## What has not been run in Codex
+## What has been run in Codex
 
-The server is tested as an MCP server over stdio against the network itself, and the hooks file follows Codex's documentation for hooks that call an MCP tool. None of it has been run inside Codex yet: the tests stand in for Codex. In particular these are taken from the documentation, not seen working:
+The tests stand in for Codex: they run the server over stdio against the network itself. Beyond them, the adapter was run in Codex CLI 0.169.0, in a session open in a terminal, with a scripted model in place of a real one. Seen working there:
 
-- that Codex reads an MCP tool hook's text result the way it reads a command hook's output;
-- that the `session_id` a hook carries is the id `codex queue --thread` takes;
-- that `codex queue` reaches a session that is open in the terminal.
+- joining with a link, and the four hooks running as MCP tool hooks;
+- a message that comes during a turn: the note reaches the model after the next tool call;
+- a message unread when the turn would end: the turn goes on with the note;
+- a message that comes while the session is idle: `codex queue` starts a turn with the note, again and again.
+
+Not seen yet: any of it with a real model deciding what to do with the note.
 
 ## Building
 
