@@ -52,6 +52,8 @@ async function session(name: string, dir: string, env: Record<string, string> = 
 				NETWORK_ORIGIN: origin,
 				MOZAIK_PEER_NAME: name,
 				MOZAIK_NETWORK_STATE_DIR: dir,
+				// Waking runs the real `codex`: only the test of it does, with a stand-in.
+				MOZAIK_CODEX_WAKE: "0",
 				...env,
 			},
 		}),
@@ -243,7 +245,7 @@ describe("Codex on a Mozaik network", () => {
 		expect(refused.text).toContain("exactly as the user wrote it")
 	})
 
-	test("with waking on, an idle session has a note queued for its thread, and not the message", async () => {
+	test("an idle session has a note queued for its thread, and not the message", async () => {
 		const dir = mkdtempSync(join(tmpdir(), "mozaik-codex-"))
 		const out = join(dir, "argv.json")
 		// A stand-in for the codex command that writes down what it was called with.
@@ -254,7 +256,7 @@ describe("Codex on a Mozaik network", () => {
 		)
 		chmodSync(codex, 0o755)
 
-		const { ana, marko } = await pair({ MOZAIK_CODEX_WAKE: "1", MOZAIK_CODEX_COMMAND: codex })
+		const { ana, marko } = await pair({ MOZAIK_CODEX_WAKE: "", MOZAIK_CODEX_COMMAND: codex })
 		await marko.hook("SessionStart")
 		expect(await marko.hook("Stop")).toBe("{}")
 		await ana.call("send_message", { text: "are you there?", to: "marko@web" })
@@ -264,8 +266,25 @@ describe("Codex on a Mozaik network", () => {
 		expect([command, flag, thread]).toEqual(["queue", "--thread", "thread-1"])
 		expect(text).toMatch(/^1 new message on the Mozaik network from ana@api \(1 sent to this session only\)/)
 		expect(text).not.toContain("are you there")
-		// Without waking on, nothing is ever run: the other session of the pair has no such command.
 		expect((await marko.call("read_messages")).text).toMatch(/→ marko@web: are you there\?$/)
+	})
+
+	test("with waking turned off, an idle session is left alone until its user writes", async () => {
+		const dir = mkdtempSync(join(tmpdir(), "mozaik-codex-"))
+		const out = join(dir, "argv.json")
+		const codex = join(dir, "codex")
+		writeFileSync(codex, `#!/usr/bin/env node\nrequire("node:fs").writeFileSync(${JSON.stringify(out)}, "ran")\n`)
+		chmodSync(codex, 0o755)
+
+		const { ana, marko } = await pair({ MOZAIK_CODEX_WAKE: "0", MOZAIK_CODEX_COMMAND: codex })
+		await marko.hook("SessionStart")
+		await marko.hook("Stop")
+		await ana.call("send_message", { text: "are you there?", to: "marko@web" })
+
+		let told = ""
+		await until(async () => (told = await marko.hook("UserPromptSubmit")) !== "")
+		expect(told).toMatch(/^1 new message on the Mozaik network from ana@api/)
+		expect(existsSync(out)).toBe(false)
 	})
 
 	test("without a saved network or a link there is nothing to join", async () => {

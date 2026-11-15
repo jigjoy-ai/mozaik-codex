@@ -7,7 +7,8 @@ export interface Wake {
 
 /**
  * `codex queue --thread <session> --message <text>` queues a message for an existing session
- * (Codex CLI reference). It is the one documented way to reach a session that is not in a turn.
+ * (Codex CLI reference), and a session open in a terminal starts a turn with it right away. It
+ * is the one documented way to reach a session that is not in a turn.
  * What is queued arrives as the user's message, so it is only ever a note that there is something
  * to read: what a peer wrote is read with a tool, where it is someone else's words.
  */

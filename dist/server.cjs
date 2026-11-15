@@ -18522,7 +18522,7 @@ async function main() {
     throw new Error("The Mozaik Network server needs Node 22 or newer");
   }
   const mcp = new Server(
-    { name: "mozaik-network", version: "0.1.1" },
+    { name: "mozaik-network", version: "0.2.0" },
     { capabilities: { tools: {} }, instructions: INSTRUCTIONS }
   );
   const settings = new NetworkSettings();
@@ -18530,7 +18530,7 @@ async function main() {
   const inbox = new Inbox();
   const origin = process.env.NETWORK_ORIGIN || import_invite_link2.HOSTED_NETWORK;
   const session = new NetworkSession(settings, view, new import_send_limit.SendLimit(), sessionName(), origin);
-  const wake = process.env.MOZAIK_CODEX_WAKE === "1" ? new CodexQueue() : void 0;
+  const wake = process.env.MOZAIK_CODEX_WAKE === "0" ? void 0 : new CodexQueue();
   const events = new SessionEvents(
     inbox,
     view,

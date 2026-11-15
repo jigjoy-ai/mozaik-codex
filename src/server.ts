@@ -34,7 +34,7 @@ async function main() {
 	}
 
 	const mcp = new Server(
-		{ name: "mozaik-network", version: "0.1.1" },
+		{ name: "mozaik-network", version: "0.2.0" },
 		{ capabilities: { tools: {} }, instructions: INSTRUCTIONS },
 	)
 
@@ -43,8 +43,8 @@ async function main() {
 	const inbox = new Inbox()
 	const origin = process.env.NETWORK_ORIGIN || HOSTED_NETWORK
 	const session = new NetworkSession(settings, view, new SendLimit(), sessionName(), origin)
-	// Waking an idle session runs `codex queue`: off unless asked for, since it starts turns on its own.
-	const wake = process.env.MOZAIK_CODEX_WAKE === "1" ? new CodexQueue() : undefined
+	// An idle session is woken with `codex queue`, so a peer is answered without the user typing; `0` turns it off.
+	const wake = process.env.MOZAIK_CODEX_WAKE === "0" ? undefined : new CodexQueue()
 	const events = new SessionEvents(
 		inbox,
 		view,
