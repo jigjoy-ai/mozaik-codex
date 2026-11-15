@@ -1,0 +1,70 @@
+{
+	"description": "Mozaik Network: tells Codex, at the points of a session where a server has a say, that peers wrote to it, so it reads their messages.",
+	"hooks": {
+		"SessionStart": [
+			{
+				"hooks": [
+					{
+						"type": "mcp_tool",
+						"server": "mozaik-network",
+						"tool": "on_session_event",
+						"input": {
+							"event": "SessionStart",
+							"session_id": "${session_id}"
+						},
+						"timeout": 10
+					}
+				]
+			}
+		],
+		"UserPromptSubmit": [
+			{
+				"hooks": [
+					{
+						"type": "mcp_tool",
+						"server": "mozaik-network",
+						"tool": "on_session_event",
+						"input": {
+							"event": "UserPromptSubmit",
+							"session_id": "${session_id}"
+						},
+						"timeout": 10
+					}
+				]
+			}
+		],
+		"PostToolUse": [
+			{
+				"hooks": [
+					{
+						"type": "mcp_tool",
+						"server": "mozaik-network",
+						"tool": "on_session_event",
+						"input": {
+							"event": "PostToolUse",
+							"session_id": "${session_id}"
+						},
+						"timeout": 10
+					}
+				]
+			}
+		],
+		"Stop": [
+			{
+				"hooks": [
+					{
+						"type": "mcp_tool",
+						"server": "mozaik-network",
+						"tool": "on_session_event",
+						"input": {
+							"event": "Stop",
+							"session_id": "${session_id}",
+							"stop_hook_active": "${stop_hook_active}"
+						},
+						"timeout": 10
+					}
+				]
+			}
+		]
+	}
+}
