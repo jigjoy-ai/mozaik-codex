@@ -7300,9 +7300,9 @@ var require_dist = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/invite-link.js
+// node_modules/@jigjoy/mozaik-network/dist/invite-link.js
 var require_invite_link = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/invite-link.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/invite-link.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.HOSTED_NETWORK = void 0;
@@ -7321,9 +7321,9 @@ var require_invite_link = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/send-limit.js
+// node_modules/@jigjoy/mozaik-network/dist/send-limit.js
 var require_send_limit = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/send-limit.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/send-limit.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.SendLimit = void 0;
@@ -7351,9 +7351,9 @@ var require_send_limit = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/use-cases/join.js
+// node_modules/@jigjoy/mozaik-network/dist/use-cases/join.js
 var require_join = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/use-cases/join.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/use-cases/join.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.JoinNetworkUseCase = void 0;
@@ -7374,9 +7374,9 @@ var require_join = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/connection-registry.js
+// node_modules/@jigjoy/mozaik-network/dist/connection-registry.js
 var require_connection_registry = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/connection-registry.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/connection-registry.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.ConnectionRegistry = void 0;
@@ -7396,9 +7396,9 @@ var require_connection_registry = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/use-cases/leave.js
+// node_modules/@jigjoy/mozaik-network/dist/use-cases/leave.js
 var require_leave = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/use-cases/leave.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/use-cases/leave.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.LeaveNetworkUseCase = void 0;
@@ -7420,9 +7420,9 @@ var require_leave = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/use-cases/send-message.js
+// node_modules/@jigjoy/mozaik-network/dist/use-cases/send-message.js
 var require_send_message = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/use-cases/send-message.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/use-cases/send-message.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.SendMessageUseCase = void 0;
@@ -7443,67 +7443,210 @@ var require_send_message = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/use-cases/react.js
-var require_react = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/use-cases/react.js"(exports2) {
+// node_modules/@jigjoy/mozaik-rule-engine/dist/index.js
+var require_dist2 = __commonJS({
+  "node_modules/@jigjoy/mozaik-rule-engine/dist/index.js"(exports2, module2) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ReactToMessageUseCase = void 0;
-    var ReactToMessageUseCase = class {
-      ruleEngine;
-      inputResolverRegistry;
-      directiveProcessor;
-      constructor(ruleEngine, inputResolverRegistry, directiveProcessor) {
-        this.ruleEngine = ruleEngine;
-        this.inputResolverRegistry = inputResolverRegistry;
-        this.directiveProcessor = directiveProcessor;
+    var __defProp2 = Object.defineProperty;
+    var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+    var __getOwnPropNames2 = Object.getOwnPropertyNames;
+    var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+    var __export2 = (target, all) => {
+      for (var name in all)
+        __defProp2(target, name, { get: all[name], enumerable: true });
+    };
+    var __copyProps2 = (to, from, except, desc) => {
+      if (from && typeof from === "object" || typeof from === "function") {
+        for (let key of __getOwnPropNames2(from))
+          if (!__hasOwnProp2.call(to, key) && key !== except)
+            __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
       }
-      /** The rule that matches says what the peer reads from the envelope and what it does with it. No rule, nothing done. */
-      async execute(peer, networkId, envelope) {
-        const rule = await this.ruleEngine.decide(peer.getPolicy(), envelope);
+      return to;
+    };
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var index_exports = {};
+    __export2(index_exports, {
+      Command: () => Command,
+      Condition: () => Condition2,
+      ConditionContract: () => ConditionContract2,
+      InputResolver: () => InputResolver2,
+      applyPolicy: () => applyPolicy,
+      commandRegistry: () => commandRegistry2,
+      conditionRegistry: () => conditionRegistry,
+      inputResolverRegistry: () => inputResolverRegistry
+    });
+    module2.exports = __toCommonJS(index_exports);
+    var Policy = class {
+      constructor(id, rules) {
+        this.id = id;
+        this.rules = rules;
+      }
+      addRule(rule) {
+        this.rules.push(rule);
+      }
+      removeRule(rule) {
+        this.rules = this.rules.filter((r) => r.getId() !== rule.getId());
+      }
+      getId() {
+        return this.id;
+      }
+      getRules() {
+        return this.rules;
+      }
+    };
+    var Rule = class _Rule {
+      constructor(id, condition, inputResolver, command, priority) {
+        this.id = id;
+        this.condition = condition;
+        this.inputResolver = inputResolver;
+        this.command = command;
+        this.priority = priority;
+      }
+      getId() {
+        return this.id;
+      }
+      getCondition() {
+        return this.condition;
+      }
+      getInput() {
+        return this.inputResolver;
+      }
+      getCommand() {
+        return this.command;
+      }
+      getPriority() {
+        return this.priority;
+      }
+      static create(ruleDefinition) {
+        return new _Rule(
+          crypto.randomUUID(),
+          ruleDefinition.condition,
+          ruleDefinition.inputResolver,
+          ruleDefinition.command,
+          ruleDefinition.priority
+        );
+      }
+      static rehydrate(record2) {
+        return new _Rule(record2.id, record2.condition, record2.inputResolver, record2.command, record2.priority);
+      }
+    };
+    var PolicyFactory = class {
+      static create(policyDefinition) {
+        const rules = [];
+        for (const ruleDefinition of policyDefinition.rules) {
+          const rule = Rule.create({
+            condition: ruleDefinition.condition,
+            inputResolver: ruleDefinition.inputResolver,
+            command: ruleDefinition.command,
+            priority: ruleDefinition.priority
+          });
+          rules.push(rule);
+        }
+        const id = crypto.randomUUID();
+        return new Policy(id, rules);
+      }
+    };
+    var ApplyPolicyUseCase = class {
+      constructor(ruleEvaluator, inputResolverRegistry2, commandRegistry22) {
+        this.ruleEvaluator = ruleEvaluator;
+        this.inputResolverRegistry = inputResolverRegistry2;
+        this.commandRegistry = commandRegistry22;
+      }
+      async execute(policyDefinition, state) {
+        const policy = PolicyFactory.create(policyDefinition);
+        const rule = await this.ruleEvaluator.findMatchingRule(policy, state);
         if (!rule) {
           return void 0;
         }
-        const inputResolver = this.inputResolverRegistry.get(rule.input);
+        const inputResolver = this.inputResolverRegistry.get(rule.getInput());
         if (!inputResolver) {
-          throw new Error(`Input ${rule.input} not found`);
+          throw new Error(`Input ${rule.getInput()} not found`);
         }
-        const input = await inputResolver.resolve(envelope);
-        return await this.directiveProcessor.process({ id: rule.directive, input });
+        const input = await inputResolver.resolve(state);
+        const command = this.commandRegistry.get(rule.getCommand());
+        if (!command) {
+          return void 0;
+        }
+        return await command.invoke(input);
       }
     };
-    exports2.ReactToMessageUseCase = ReactToMessageUseCase;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/directive-registry.js
-var require_directive_registry = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/directive-registry.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DirectiveRegistry = void 0;
-    var DirectiveRegistry = class {
-      directives = /* @__PURE__ */ new Map();
-      register(contractId, directive) {
-        this.directives.set(contractId, directive);
+    var RuleEvaluator = class {
+      constructor(conditionRegistry2) {
+        this.conditionRegistry = conditionRegistry2;
       }
-      get(contractId) {
-        const directive = this.directives.get(contractId);
-        return directive;
+      /** The rule to act on: of those whose condition holds, the one with the smallest priority. */
+      async findMatchingRule(policy, input) {
+        const satisfiedRules = [];
+        for (const rule of policy.getRules()) {
+          const condition = this.conditionRegistry.get(rule.getCondition());
+          if (await (condition == null ? void 0 : condition.isSatisfiedBy(input))) {
+            satisfiedRules.push(rule);
+          }
+        }
+        if (satisfiedRules.length === 0) {
+          return void 0;
+        }
+        return satisfiedRules.sort((a, b) => {
+          var _a6, _b;
+          return ((_a6 = a.getPriority()) != null ? _a6 : 0) - ((_b = b.getPriority()) != null ? _b : 0);
+        })[0];
       }
     };
-    exports2.DirectiveRegistry = DirectiveRegistry;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/input-resolver-registry.js
-var require_input_resolver_registry = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/input-resolver-registry.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.InputResolverRegistry = void 0;
-    var InputResolverRegistry = class {
-      resolvers = {};
+    var ConditionContract2 = class {
+      and(other) {
+        return new AndConditionContract(this, other);
+      }
+      or(other) {
+        return new OrConditionContract(this, other);
+      }
+      not() {
+        return new NotConditionContract(this);
+      }
+    };
+    var AndConditionContract = class extends ConditionContract2 {
+      constructor(left, right) {
+        super();
+        this.left = left;
+        this.right = right;
+      }
+      async isSatisfiedBy(state) {
+        return await this.left.isSatisfiedBy(state) && await this.right.isSatisfiedBy(state);
+      }
+    };
+    var OrConditionContract = class extends ConditionContract2 {
+      constructor(left, right) {
+        super();
+        this.left = left;
+        this.right = right;
+      }
+      async isSatisfiedBy(state) {
+        return await this.left.isSatisfiedBy(state) || await this.right.isSatisfiedBy(state);
+      }
+    };
+    var NotConditionContract = class extends ConditionContract2 {
+      constructor(condition) {
+        super();
+        this.condition = condition;
+      }
+      async isSatisfiedBy(state) {
+        return !await this.condition.isSatisfiedBy(state);
+      }
+    };
+    var InMemoryConditionRegistry = class {
+      constructor() {
+        this.conditions = /* @__PURE__ */ new Map();
+      }
+      register(id, condition) {
+        this.conditions.set(id, condition);
+      }
+      get(id) {
+        return this.conditions.get(id);
+      }
+    };
+    var InMemoryInputResolverRegistry = class {
+      constructor() {
+        this.resolvers = {};
+      }
       register(id, resolver) {
         this.resolvers[id] = resolver;
       }
@@ -7511,93 +7654,54 @@ var require_input_resolver_registry = __commonJS({
         return this.resolvers[id];
       }
     };
-    exports2.InputResolverRegistry = InputResolverRegistry;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/rule-registry.js
-var require_rule_registry = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/rule-registry.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.RuleRegistry = void 0;
-    var RuleRegistry = class {
-      specifications = /* @__PURE__ */ new Map();
-      get(id) {
-        return this.specifications.get(id);
+    var InMemoryCommandRegistry = class {
+      constructor() {
+        this.commands = /* @__PURE__ */ new Map();
       }
-      register(id, specification) {
-        this.specifications.set(id, specification);
+      register(contractId, command) {
+        this.commands.set(contractId, command);
+      }
+      get(contractId) {
+        const command = this.commands.get(contractId);
+        return command;
       }
     };
-    exports2.RuleRegistry = RuleRegistry;
+    var inputResolverRegistry = new InMemoryInputResolverRegistry();
+    var conditionRegistry = new InMemoryConditionRegistry();
+    var commandRegistry2 = new InMemoryCommandRegistry();
+    function InputResolver2(options) {
+      return function(ResolverClass, _context) {
+        inputResolverRegistry.register(options.name, new ResolverClass());
+      };
+    }
+    function Condition2(options) {
+      return function(ConditionClass, _context) {
+        conditionRegistry.register(options.name, new ConditionClass());
+      };
+    }
+    function Command(options) {
+      return function(CommandClass, _context) {
+        commandRegistry2.register(options.name, new CommandClass());
+      };
+    }
+    var applyPolicyUseCase = new ApplyPolicyUseCase(
+      new RuleEvaluator(conditionRegistry),
+      inputResolverRegistry,
+      commandRegistry2
+    );
+    async function applyPolicy(policy, input) {
+      return await applyPolicyUseCase.execute(policy, input);
+    }
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/peer/rule-engine.js
-var require_rule_engine = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/rule-engine.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.RuleEngine = void 0;
-    var RuleEngine = class {
-      specificationRegistry;
-      constructor(specificationRegistry) {
-        this.specificationRegistry = specificationRegistry;
-      }
-      /** The rule to act on: of those whose condition holds, the one with the smallest priority. */
-      async decide(policy, envelope) {
-        const satisfiedRules = [];
-        for (const rule of policy.getRules()) {
-          const specification = this.specificationRegistry.get(rule.condition);
-          if (await specification?.isSatisfiedBy(envelope)) {
-            satisfiedRules.push(rule);
-          }
-        }
-        if (satisfiedRules.length === 0) {
-          return void 0;
-        }
-        return satisfiedRules.sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))[0];
-      }
-    };
-    exports2.RuleEngine = RuleEngine;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/directive-processor.js
-var require_directive_processor = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/directive-processor.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DirectiveProcessor = void 0;
-    var DirectiveProcessor = class {
-      directiveRegistry;
-      constructor(directiveRegistry2) {
-        this.directiveRegistry = directiveRegistry2;
-      }
-      async process(directiveDefinition) {
-        const directive = this.directiveRegistry.get(directiveDefinition.id);
-        if (!directive) {
-          return void 0;
-        }
-        const result = await directive.invoke(directiveDefinition.input);
-        return {
-          directiveId: directive.id,
-          result
-        };
-      }
-    };
-    exports2.DirectiveProcessor = DirectiveProcessor;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/peer.js
+// node_modules/@jigjoy/mozaik-network/dist/peer.js
 var require_peer = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/peer.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/peer.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Peer = void 0;
-    var index_1 = require_dist2();
+    var mozaik_rule_engine_1 = require_dist2();
     var Peer = class {
       id;
       /** What the peer joins a network with. The network shows it once, when the peer is created. */
@@ -7620,16 +7724,16 @@ var require_peer = __commonJS({
         return { ...this.manifest };
       }
       async receive(envelope) {
-        await (0, index_1.reactToMessage)(this, envelope.networkId, envelope);
+        await (0, mozaik_rule_engine_1.applyPolicy)(this.policy, envelope);
       }
     };
     exports2.Peer = Peer;
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/websocket-transport.js
+// node_modules/@jigjoy/mozaik-network/dist/websocket-transport.js
 var require_websocket_transport = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/websocket-transport.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/websocket-transport.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.WebSocketTransport = void 0;
@@ -7748,9 +7852,9 @@ var require_websocket_transport = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/connection.js
+// node_modules/@jigjoy/mozaik-network/dist/connection.js
 var require_connection = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/connection.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/connection.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Connection = void 0;
@@ -7843,60 +7947,14 @@ var require_connection = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/peer/behavior-policy.js
-var require_behavior_policy = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/behavior-policy.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.BehaviorPolicy = void 0;
-    var BehaviorPolicy = class _BehaviorPolicy {
-      id;
-      rules;
-      constructor(id, rules) {
-        this.id = id;
-        this.rules = rules;
-      }
-      addRule(rule) {
-        this.rules.push(rule);
-      }
-      removeRule(rule) {
-        this.rules = this.rules.filter((r) => r.id !== rule.id);
-      }
-      getId() {
-        return this.id;
-      }
-      getRules() {
-        return this.rules;
-      }
-      static create(policyDefinition) {
-        const rules = [];
-        for (const ruleDefinition of policyDefinition.rules) {
-          const rule = {
-            id: crypto.randomUUID(),
-            condition: ruleDefinition.condition,
-            input: ruleDefinition.input,
-            directive: ruleDefinition.directive,
-            priority: ruleDefinition.priority
-          };
-          rules.push(rule);
-        }
-        const id = crypto.randomUUID();
-        return new _BehaviorPolicy(id, rules);
-      }
-    };
-    exports2.BehaviorPolicy = BehaviorPolicy;
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/network-client.js
+// node_modules/@jigjoy/mozaik-network/dist/network-client.js
 var require_network_client = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/network-client.js"(exports2) {
+  "node_modules/@jigjoy/mozaik-network/dist/network-client.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.NetworkClient = void 0;
     var peer_1 = require_peer();
     var connection_1 = require_connection();
-    var behavior_policy_1 = require_behavior_policy();
     var origin = process.env.NETWORK_ORIGIN || "http://localhost:3000";
     var NetworkClient2 = class {
       httpOrigin;
@@ -7930,13 +7988,12 @@ var require_network_client = __commonJS({
         return response.invite;
       }
       async createPeer(payload) {
-        const { name, role, capabilities } = payload;
-        const response = await this.post("/peers", { name, role, capabilities }, payload.invite ?? this.apiKey);
-        const policy = behavior_policy_1.BehaviorPolicy.create(payload.policy);
+        const { name, role, capabilities, policy, invite } = payload;
+        const response = await this.post("/peers", { name, role, capabilities }, invite ?? this.apiKey);
         return new peer_1.Peer(response.id, {
           id: response.id,
-          name: payload.name,
-          capabilities: payload.capabilities
+          name,
+          capabilities
         }, policy, response.token, response.networkId);
       }
       connection(peer) {
@@ -7962,28 +8019,18 @@ var require_network_client = __commonJS({
   }
 });
 
-// node_modules/@mozaik-ai/network-client/dist/index.js
-var require_dist2 = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/index.js"(exports2) {
+// node_modules/@jigjoy/mozaik-network/dist/index.js
+var require_dist3 = __commonJS({
+  "node_modules/@jigjoy/mozaik-network/dist/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.directiveRegistry = exports2.specificationRegistry = exports2.inputResolverRegistry = void 0;
     exports2.join = join4;
     exports2.leave = leave2;
     exports2.sendMessage = sendMessage2;
-    exports2.reactToMessage = reactToMessage;
-    exports2.Input = Input2;
-    exports2.Condition = Condition2;
     var join_1 = require_join();
     var connection_registry_1 = require_connection_registry();
     var leave_1 = require_leave();
     var send_message_1 = require_send_message();
-    var react_1 = require_react();
-    var directive_registry_1 = require_directive_registry();
-    var input_resolver_registry_1 = require_input_resolver_registry();
-    var rule_registry_1 = require_rule_registry();
-    var rule_engine_1 = require_rule_engine();
-    var directive_processor_1 = require_directive_processor();
     var network_client_1 = require_network_client();
     var connectionRegistry = new connection_registry_1.ConnectionRegistry();
     async function join4(peer, networkId, client = new network_client_1.NetworkClient()) {
@@ -7998,81 +8045,6 @@ var require_dist2 = __commonJS({
       const useCase = new send_message_1.SendMessageUseCase(connectionRegistry);
       return useCase.execute(peer, networkId, message, to);
     }
-    async function reactToMessage(peer, networkId, envelope) {
-      const useCase = new react_1.ReactToMessageUseCase(new rule_engine_1.RuleEngine(exports2.specificationRegistry), exports2.inputResolverRegistry, new directive_processor_1.DirectiveProcessor(exports2.directiveRegistry));
-      return await useCase.execute(peer, networkId, envelope);
-    }
-    exports2.inputResolverRegistry = new input_resolver_registry_1.InputResolverRegistry();
-    exports2.specificationRegistry = new rule_registry_1.RuleRegistry();
-    exports2.directiveRegistry = new directive_registry_1.DirectiveRegistry();
-    function Input2(options) {
-      return function(ResolverClass, _context) {
-        exports2.inputResolverRegistry.register(options.name, new ResolverClass());
-      };
-    }
-    function Condition2(options) {
-      return function(SpecificationClass, _context) {
-        exports2.specificationRegistry.register(options.name, new SpecificationClass());
-      };
-    }
-  }
-});
-
-// node_modules/@mozaik-ai/network-client/dist/peer/condition-specification.js
-var require_condition_specification = __commonJS({
-  "node_modules/@mozaik-ai/network-client/dist/peer/condition-specification.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.NotConditionSpecification = exports2.OrConditionSpecification = exports2.AndConditionSpecification = exports2.ConditionSpecification = void 0;
-    var ConditionSpecification2 = class {
-      and(other) {
-        return new AndConditionSpecification(this, other);
-      }
-      or(other) {
-        return new OrConditionSpecification(this, other);
-      }
-      not() {
-        return new NotConditionSpecification(this);
-      }
-    };
-    exports2.ConditionSpecification = ConditionSpecification2;
-    var AndConditionSpecification = class extends ConditionSpecification2 {
-      left;
-      right;
-      constructor(left, right) {
-        super();
-        this.left = left;
-        this.right = right;
-      }
-      async isSatisfiedBy(envelope) {
-        return await this.left.isSatisfiedBy(envelope) && await this.right.isSatisfiedBy(envelope);
-      }
-    };
-    exports2.AndConditionSpecification = AndConditionSpecification;
-    var OrConditionSpecification = class extends ConditionSpecification2 {
-      left;
-      right;
-      constructor(left, right) {
-        super();
-        this.left = left;
-        this.right = right;
-      }
-      async isSatisfiedBy(envelope) {
-        return await this.left.isSatisfiedBy(envelope) || await this.right.isSatisfiedBy(envelope);
-      }
-    };
-    exports2.OrConditionSpecification = OrConditionSpecification;
-    var NotConditionSpecification = class extends ConditionSpecification2 {
-      condition;
-      constructor(condition) {
-        super();
-        this.condition = condition;
-      }
-      async isSatisfiedBy(envelope) {
-        return !await this.condition.isSatisfiedBy(envelope);
-      }
-    };
-    exports2.NotConditionSpecification = NotConditionSpecification;
   }
 });
 
@@ -17935,8 +17907,8 @@ var Inbox = class {
 };
 
 // src/network-session.ts
-var import_network_client2 = __toESM(require_dist2());
-var import_network_client3 = __toESM(require_network_client());
+var import_mozaik_network = __toESM(require_dist3());
+var import_network_client = __toESM(require_network_client());
 var import_invite_link = __toESM(require_invite_link());
 
 // src/mozaik-cloud-key.ts
@@ -17958,18 +17930,17 @@ function mozaikCloudKey() {
 }
 
 // src/rules.ts
-var import_network_client = __toESM(require_dist2());
-var import_condition_specification = __toESM(require_condition_specification());
+var import_mozaik_rule_engine = __toESM(require_dist2());
 var codexPolicy = {
   rules: [
-    { condition: "message.received", input: "message", directive: "codex.keep" },
-    { condition: "membership.changed", input: "envelope", directive: "network.observe" },
-    { condition: "request.refused", input: "refusal", directive: "codex.report" }
+    { condition: "message.received", inputResolver: "message", command: "codex.keep" },
+    { condition: "membership.changed", inputResolver: "envelope", command: "network.observe" },
+    { condition: "request.refused", inputResolver: "refusal", command: "codex.report" }
   ]
 };
 var _MessageReceivedCondition_decorators, _init, _a3;
-_MessageReceivedCondition_decorators = [(0, import_network_client.Condition)({ name: "message.received" })];
-var MessageReceivedCondition = class extends (_a3 = import_condition_specification.ConditionSpecification) {
+_MessageReceivedCondition_decorators = [(0, import_mozaik_rule_engine.Condition)({ name: "message.received" })];
+var MessageReceivedCondition = class extends (_a3 = import_mozaik_rule_engine.ConditionContract) {
   isSatisfiedBy(envelope) {
     return envelope.type === "message.sent";
   }
@@ -17978,8 +17949,8 @@ _init = __decoratorStart(_a3);
 MessageReceivedCondition = __decorateElement(_init, 0, "MessageReceivedCondition", _MessageReceivedCondition_decorators, MessageReceivedCondition);
 __runInitializers(_init, 1, MessageReceivedCondition);
 var _MembershipChangedCondition_decorators, _init2, _a4;
-_MembershipChangedCondition_decorators = [(0, import_network_client.Condition)({ name: "membership.changed" })];
-var MembershipChangedCondition = class extends (_a4 = import_condition_specification.ConditionSpecification) {
+_MembershipChangedCondition_decorators = [(0, import_mozaik_rule_engine.Condition)({ name: "membership.changed" })];
+var MembershipChangedCondition = class extends (_a4 = import_mozaik_rule_engine.ConditionContract) {
   isSatisfiedBy(envelope) {
     return ["peer.welcomed", "peer.joined", "peer.left"].includes(envelope.type);
   }
@@ -17988,8 +17959,8 @@ _init2 = __decoratorStart(_a4);
 MembershipChangedCondition = __decorateElement(_init2, 0, "MembershipChangedCondition", _MembershipChangedCondition_decorators, MembershipChangedCondition);
 __runInitializers(_init2, 1, MembershipChangedCondition);
 var _RequestRefusedCondition_decorators, _init3, _a5;
-_RequestRefusedCondition_decorators = [(0, import_network_client.Condition)({ name: "request.refused" })];
-var RequestRefusedCondition = class extends (_a5 = import_condition_specification.ConditionSpecification) {
+_RequestRefusedCondition_decorators = [(0, import_mozaik_rule_engine.Condition)({ name: "request.refused" })];
+var RequestRefusedCondition = class extends (_a5 = import_mozaik_rule_engine.ConditionContract) {
   isSatisfiedBy(envelope) {
     return envelope.type === "error";
   }
@@ -17998,7 +17969,7 @@ _init3 = __decoratorStart(_a5);
 RequestRefusedCondition = __decorateElement(_init3, 0, "RequestRefusedCondition", _RequestRefusedCondition_decorators, RequestRefusedCondition);
 __runInitializers(_init3, 1, RequestRefusedCondition);
 var _MessageInput_decorators, _init4;
-_MessageInput_decorators = [(0, import_network_client.Input)({ name: "message" })];
+_MessageInput_decorators = [(0, import_mozaik_rule_engine.InputResolver)({ name: "message" })];
 var MessageInput = class {
   resolve(envelope) {
     return Promise.resolve(toMessage(envelope));
@@ -18008,7 +17979,7 @@ _init4 = __decoratorStart(null);
 MessageInput = __decorateElement(_init4, 0, "MessageInput", _MessageInput_decorators, MessageInput);
 __runInitializers(_init4, 1, MessageInput);
 var _EnvelopeInput_decorators, _init5;
-_EnvelopeInput_decorators = [(0, import_network_client.Input)({ name: "envelope" })];
+_EnvelopeInput_decorators = [(0, import_mozaik_rule_engine.InputResolver)({ name: "envelope" })];
 var EnvelopeInput = class {
   resolve(envelope) {
     return Promise.resolve(envelope);
@@ -18018,7 +17989,7 @@ _init5 = __decoratorStart(null);
 EnvelopeInput = __decorateElement(_init5, 0, "EnvelopeInput", _EnvelopeInput_decorators, EnvelopeInput);
 __runInitializers(_init5, 1, EnvelopeInput);
 var _RefusalInput_decorators, _init6;
-_RefusalInput_decorators = [(0, import_network_client.Input)({ name: "refusal" })];
+_RefusalInput_decorators = [(0, import_mozaik_rule_engine.InputResolver)({ name: "refusal" })];
 var RefusalInput = class {
   resolve(envelope) {
     return Promise.resolve(envelope.payload);
@@ -18086,13 +18057,13 @@ var ReportRefusal = class {
     );
   }
 };
-function registerDirectives(view, inbox, comeBack) {
-  const directives = [
+function registerCommands(view, inbox, comeBack) {
+  const commands = [
     new KeepForCodex(view, inbox),
     new ObserveNetwork(view, inbox),
     new ReportRefusal(inbox, comeBack)
   ];
-  for (const directive of directives) import_network_client.directiveRegistry.register(directive.id, directive);
+  for (const command of commands) import_mozaik_rule_engine.commandRegistry.register(command.id, command);
 }
 function toMessage(envelope) {
   return {
@@ -18127,7 +18098,7 @@ var NetworkSession = class {
   async create(name) {
     this.mustBeOutside();
     const origin = this.defaultOrigin;
-    const client = new import_network_client3.NetworkClient({ origin, apiKey: mozaikCloudKey() });
+    const client = new import_network_client.NetworkClient({ origin, apiKey: mozaikCloudKey() });
     const network = await client.createNetwork({ name });
     const invite = await client.createInvite(network.id);
     await this.enter({ origin, invite, name });
@@ -18176,19 +18147,23 @@ var NetworkSession = class {
       return false;
     }
   }
-  /** With `to`, a peer's id or name, the message goes to that peer only. */
+  /** With `to`, a peer's id or name (see NetworkView.find), the message goes to that peer only. */
   async send(text, to) {
     if (!this.membership) throw new Error("Not in a network: join one first");
     const { peer, networkId } = this.membership;
     const recipient = to === void 0 ? void 0 : this.view.find(to);
-    if (to !== void 0 && !recipient) throw new Error(`No peer "${to}" in the network`);
+    if (to !== void 0 && !recipient) {
+      const others = this.view.peers().filter((other) => other.id !== peer.id).map((other) => `"${this.view.nameOf(other.id)}"`);
+      const there = others.length > 0 ? `Peers there: ${others.join(", ")}.` : "No other peer is there.";
+      throw new Error(`No peer "${to}" in the network. ${there}`);
+    }
     this.limit.take();
-    await (0, import_network_client2.sendMessage)(peer, networkId, text, recipient?.id);
+    await (0, import_mozaik_network.sendMessage)(peer, networkId, text, recipient?.id);
     this.view.heard({ id: crypto.randomUUID(), senderId: peer.id, text, to: recipient?.id, at: /* @__PURE__ */ new Date() });
   }
   /** The invite makes a new peer for this session, and the network is saved for the sessions to come. */
   async enter(network) {
-    const client = new import_network_client3.NetworkClient({ origin: network.origin });
+    const client = new import_network_client.NetworkClient({ origin: network.origin });
     const peer = await client.createPeer({
       name: this.peerName,
       role: "agent",
@@ -18197,7 +18172,7 @@ var NetworkSession = class {
       policy: codexPolicy
     });
     if (!peer.invitedTo) throw new Error("The network didn't say which network the invite is for");
-    await (0, import_network_client2.join)(peer, peer.invitedTo, client);
+    await (0, import_mozaik_network.join)(peer, peer.invitedTo, client);
     this.membership = { peer, networkId: peer.invitedTo };
     this.settings.save(network);
   }
@@ -18206,7 +18181,7 @@ var NetworkSession = class {
     const { peer, networkId } = this.membership;
     this.membership = void 0;
     this.view.clear();
-    await (0, import_network_client2.leave)(peer, networkId).catch(() => {
+    await (0, import_mozaik_network.leave)(peer, networkId).catch(() => {
     });
   }
   mustBeOutside() {
@@ -18294,11 +18269,28 @@ var NetworkView = class {
     const name = this.known.get(peerId)?.name ?? `unknown-${peerId.slice(0, 8)}`;
     return name.replace(/[^\w@.\- ]/g, "?").slice(0, 64);
   }
-  /** A peer that is here, by its id or by the name it is shown under. */
+  /** A name as the model reads it: in quotes when it has a space, so where it ends is plain. */
+  shownName(peerId) {
+    const name = this.nameOf(peerId);
+    return name.includes(" ") ? `"${name}"` : name;
+  }
+  /**
+   * A peer that is here, by its id or by the name it is shown under. Models write a name with
+   * spaces in their own way (`General_Assistant@x`, `generalassistant @ x`, in quotes): that finds
+   * the peer too, but only when no other peer's name reads the same.
+   */
   find(idOrName) {
-    return this.peers().find((peer) => peer.id === idOrName || this.nameOf(peer.id) === idOrName);
+    const peers = this.peers();
+    const exact = peers.find((peer) => peer.id === idOrName || this.nameOf(peer.id) === idOrName);
+    if (exact) return exact;
+    const loose = loosely(idOrName);
+    const alike = peers.filter((peer) => loosely(this.nameOf(peer.id)) === loose);
+    return alike.length === 1 ? alike[0] : void 0;
   }
 };
+function loosely(name) {
+  return name.toLowerCase().replace(/["'`\u201c\u201d\u2018\u2019\s_-]/g, "");
+}
 
 // src/session-events.ts
 var SessionEvents = class {
@@ -18356,7 +18348,7 @@ var SessionEvents = class {
   note({ messages, notices }) {
     const lines = [...notices];
     if (messages.length > 0) {
-      const names = [...new Set(messages.map((message) => this.view.nameOf(message.senderId)))];
+      const names = [...new Set(messages.map((message) => this.view.shownName(message.senderId)))];
       const direct = messages.filter((message) => message.to !== void 0).length;
       const many = messages.length > 1;
       lines.push(
@@ -18373,11 +18365,11 @@ var MAX_WAIT_SECONDS = 50;
 function networkTools(session, view, inbox, events) {
   const peerList = () => {
     const me = session.getMembership()?.peer.id;
-    return view.peers().map((peer) => `- ${view.nameOf(peer.id)} (${peer.id})${peer.id === me ? " \u2014 this session" : ""}`).join("\n");
+    return view.peers().map((peer) => `- ${view.shownName(peer.id)} (${peer.id})${peer.id === me ? " \u2014 this session" : ""}`).join("\n");
   };
   const line = (message) => {
-    const to = message.to === void 0 ? "" : ` \u2192 ${view.nameOf(message.to)}`;
-    return `${message.at.toISOString()} ${view.nameOf(message.senderId)} (${message.senderId})${to}: ${message.text}`;
+    const to = message.to === void 0 ? "" : ` \u2192 ${view.shownName(message.to)}`;
+    return `${message.at.toISOString()} ${view.shownName(message.senderId)} (${message.senderId})${to}: ${message.text}`;
   };
   const unread = () => {
     const { messages, notices } = inbox.take();
@@ -18421,10 +18413,10 @@ ${link}`;
     },
     {
       name: "send_message",
-      description: "Send a message to the peers in the network. Pass `to` (a peer's id or name) to reach that peer only; without it every peer gets the message. To get the answer, call wait_for_message afterwards.",
+      description: "Send a message to the peers in the network. Pass `to` (a peer's id, or its name as list_peers shows it) to reach that peer only; without it every peer gets the message. To get the answer, call wait_for_message afterwards.",
       inputSchema: {
         type: "object",
-        properties: { text: { type: "string" }, to: { type: "string", description: "Peer id or name" } },
+        properties: { text: { type: "string" }, to: { type: "string", description: "Peer id, or the name as list_peers shows it" } },
         required: ["text"]
       },
       async call({ text, to }) {
@@ -18522,7 +18514,7 @@ async function main() {
     throw new Error("The Mozaik Network server needs Node 22 or newer");
   }
   const mcp = new Server(
-    { name: "mozaik-network", version: "0.2.0" },
+    { name: "mozaik-network", version: "0.3.0" },
     { capabilities: { tools: {} }, instructions: INSTRUCTIONS }
   );
   const settings = new NetworkSettings();
@@ -18539,7 +18531,7 @@ async function main() {
     wake
   );
   const tools = networkTools(session, view, inbox, events);
-  registerDirectives(view, inbox, () => session.comeBack());
+  registerCommands(view, inbox, () => session.comeBack());
   mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema }))
   }));

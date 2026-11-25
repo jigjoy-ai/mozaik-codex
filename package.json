@@ -1,6 +1,6 @@
 {
 	"name": "mozaik-codex",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"private": true,
 	"description": "Connects Codex sessions to a Mozaik network: see the other sessions and exchange messages with them.",
 	"license": "MIT",
@@ -13,8 +13,9 @@
 		"typecheck": "tsc --noEmit -p ."
 	},
 	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.32.2",
-		"@mozaik-ai/network-client": "^0.1.0"
+		"@jigjoy/mozaik-network": "^0.1.0",
+		"@jigjoy/mozaik-rule-engine": "^0.0.2",
+		"@modelcontextprotocol/sdk": "^1.32.2"
 	},
 	"devDependencies": {
 		"@rstest/core": "0.12.4",

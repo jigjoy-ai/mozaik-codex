@@ -1,12 +1,12 @@
-import { join, leave, sendMessage } from "@mozaik-ai/network-client"
-import { NetworkClient } from "@mozaik-ai/network-client/network-client"
-import { Peer } from "@mozaik-ai/network-client/peer/peer"
-import { readInviteLink, writeInviteLink } from "@mozaik-ai/network-client/invite-link"
+import { join, leave, sendMessage } from "@jigjoy/mozaik-network"
+import { NetworkClient } from "@jigjoy/mozaik-network/network-client"
+import { Peer } from "@jigjoy/mozaik-network/peer"
+import { readInviteLink, writeInviteLink } from "@jigjoy/mozaik-network/invite-link"
 import { mozaikCloudKey } from "./mozaik-cloud-key"
 import { NetworkSettings, SavedNetwork } from "./network-settings"
 import { NetworkView } from "./network-view"
 import { codexPolicy } from "./rules"
-import { SendLimit } from "@mozaik-ai/network-client/send-limit"
+import { SendLimit } from "@jigjoy/mozaik-network/send-limit"
 
 type Membership = { peer: Peer; networkId: string }
 
@@ -95,13 +95,21 @@ export class NetworkSession {
 		}
 	}
 
-	/** With `to`, a peer's id or name, the message goes to that peer only. */
+	/** With `to`, a peer's id or name (see NetworkView.find), the message goes to that peer only. */
 	async send(text: string, to?: string): Promise<void> {
 		if (!this.membership) throw new Error("Not in a network: join one first")
 		const { peer, networkId } = this.membership
 
 		const recipient = to === undefined ? undefined : this.view.find(to)
-		if (to !== undefined && !recipient) throw new Error(`No peer "${to}" in the network`)
+		if (to !== undefined && !recipient) {
+			// Who is there, by the names that reach them: the model's next try is one of these.
+			const others = this.view
+				.peers()
+				.filter((other) => other.id !== peer.id)
+				.map((other) => `"${this.view.nameOf(other.id)}"`)
+			const there = others.length > 0 ? `Peers there: ${others.join(", ")}.` : "No other peer is there."
+			throw new Error(`No peer "${to}" in the network. ${there}`)
+		}
 
 		this.limit.take()
 		await sendMessage(peer, networkId, text, recipient?.id)

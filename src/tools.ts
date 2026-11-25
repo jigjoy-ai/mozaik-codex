@@ -20,13 +20,13 @@ export function networkTools(session: NetworkSession, view: NetworkView, inbox: 
 		const me = session.getMembership()?.peer.id
 		return view
 			.peers()
-			.map((peer) => `- ${view.nameOf(peer.id)} (${peer.id})${peer.id === me ? " — this session" : ""}`)
+			.map((peer) => `- ${view.shownName(peer.id)} (${peer.id})${peer.id === me ? " — this session" : ""}`)
 			.join("\n")
 	}
 
 	const line = (message: Message) => {
-		const to = message.to === undefined ? "" : ` → ${view.nameOf(message.to)}`
-		return `${message.at.toISOString()} ${view.nameOf(message.senderId)} (${message.senderId})${to}: ${message.text}`
+		const to = message.to === undefined ? "" : ` → ${view.shownName(message.to)}`
+		return `${message.at.toISOString()} ${view.shownName(message.senderId)} (${message.senderId})${to}: ${message.text}`
 	}
 
 	/** What is unread, read now: the network's own notes first, then the peers' messages. */
@@ -75,10 +75,10 @@ export function networkTools(session: NetworkSession, view: NetworkView, inbox: 
 		{
 			name: "send_message",
 			description:
-				"Send a message to the peers in the network. Pass `to` (a peer's id or name) to reach that peer only; without it every peer gets the message. To get the answer, call wait_for_message afterwards.",
+				"Send a message to the peers in the network. Pass `to` (a peer's id, or its name as list_peers shows it) to reach that peer only; without it every peer gets the message. To get the answer, call wait_for_message afterwards.",
 			inputSchema: {
 				type: "object",
-				properties: { text: { type: "string" }, to: { type: "string", description: "Peer id or name" } },
+				properties: { text: { type: "string" }, to: { type: "string", description: "Peer id, or the name as list_peers shows it" } },
 				required: ["text"],
 			},
 			async call({ text, to }) {

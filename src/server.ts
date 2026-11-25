@@ -3,13 +3,13 @@ import { basename } from "node:path"
 import { Server } from "@modelcontextprotocol/sdk/server/index.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js"
-import { HOSTED_NETWORK } from "@mozaik-ai/network-client/invite-link"
-import { SendLimit } from "@mozaik-ai/network-client/send-limit"
+import { HOSTED_NETWORK } from "@jigjoy/mozaik-network/invite-link"
+import { SendLimit } from "@jigjoy/mozaik-network/send-limit"
 import { Inbox } from "./inbox"
 import { NetworkSession } from "./network-session"
 import { NetworkSettings } from "./network-settings"
 import { NetworkView } from "./network-view"
-import { registerDirectives } from "./rules"
+import { registerCommands } from "./rules"
 import { SessionEvents } from "./session-events"
 import { networkTools } from "./tools"
 import { CodexQueue } from "./wake"
@@ -34,7 +34,7 @@ async function main() {
 	}
 
 	const mcp = new Server(
-		{ name: "mozaik-network", version: "0.2.0" },
+		{ name: "mozaik-network", version: "0.3.0" },
 		{ capabilities: { tools: {} }, instructions: INSTRUCTIONS },
 	)
 
@@ -54,7 +54,7 @@ async function main() {
 	)
 	const tools = networkTools(session, view, inbox, events)
 
-	registerDirectives(view, inbox, () => session.comeBack())
+	registerCommands(view, inbox, () => session.comeBack())
 
 	mcp.setRequestHandler(ListToolsRequestSchema, async () => ({
 		tools: tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema })),

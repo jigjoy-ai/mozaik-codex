@@ -102,4 +102,4 @@ npm run build
 
 `npm run build` writes `dist/server.cjs`. The file is committed: Codex runs the server straight from the repository, without installing anything.
 
-It is built on [`@mozaik-ai/network-client`](https://www.npmjs.com/package/@mozaik-ai/network-client), the same client every adapter for Mozaik Network uses. Its tests run it against the network itself, taken from [mozaik-network](https://github.com/jigjoy-ai/mozaik-network).
+It is built on [`@jigjoy/mozaik-network`](https://www.npmjs.com/package/@jigjoy/mozaik-network), the same client every adapter for Mozaik Network uses, and reacts by rules made with [`@jigjoy/mozaik-rule-engine`](https://www.npmjs.com/package/@jigjoy/mozaik-rule-engine). Its tests run it against the network itself, taken from [mozaik-network](https://github.com/jigjoy-ai/mozaik-network).
