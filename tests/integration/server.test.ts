@@ -125,7 +125,10 @@ describe("Codex on a Mozaik network", () => {
 		expect((await ana.call("read_messages", { recent: 5 })).text).toMatch(
 			/ana@api \([\w-]+\): who is on the login bug\?\n.* marko@web \([\w-]+\) → ana@api: me$/,
 		)
-		expect((await marko.call("send_message", { text: "hi", to: "nobody" })).failed).toBe(true)
+		expect(await marko.call("send_message", { text: "hi", to: "nobody" })).toEqual({
+			text: 'send_message: No peer "nobody" in the network. Peers there: "ana@api".',
+			failed: true,
+		})
 		expect([...ana.pushed, ...marko.pushed]).toEqual([])
 	})
 
@@ -183,6 +186,20 @@ describe("Codex on a Mozaik network", () => {
 		expect(joined.text).toContain("ana@api")
 		expect(joined.text).toContain("ana@web")
 		expect(await later.hook("SessionStart")).toBe("")
+	})
+
+	test("a peer whose name has spaces is listed in quotes, and reached however the name is written", async () => {
+		const [ana, marko] = await Promise.all([
+			session("General Assistant@ana", stateDir()),
+			session("marko@web", stateDir()),
+		])
+		const link = (await ana.call("create_network", { name: "team" })).text.split("\n").pop()!
+
+		expect((await marko.call("join_network", { invite: link })).text).toContain('- "General Assistant@ana" (')
+
+		await marko.call("send_message", { text: "hello", to: "generalassistant @ ana" })
+		const heard = await ana.call("wait_for_message", { seconds: 5 })
+		expect(heard.text).toMatch(/marko@web \([\w-]+\) → "General Assistant@ana": hello$/)
 	})
 
 	test("a session the network forgot comes back by itself, and says so where Codex reads", async () => {

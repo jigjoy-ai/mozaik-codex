@@ -64,8 +64,29 @@ export class NetworkView {
 		return name.replace(/[^\w@.\- ]/g, "?").slice(0, 64)
 	}
 
-	/** A peer that is here, by its id or by the name it is shown under. */
-	find(idOrName: string): PeerInfo | undefined {
-		return this.peers().find((peer) => peer.id === idOrName || this.nameOf(peer.id) === idOrName)
+	/** A name as the model reads it: in quotes when it has a space, so where it ends is plain. */
+	shownName(peerId: string): string {
+		const name = this.nameOf(peerId)
+		return name.includes(" ") ? `"${name}"` : name
 	}
+
+	/**
+	 * A peer that is here, by its id or by the name it is shown under. Models write a name with
+	 * spaces in their own way (`General_Assistant@x`, `generalassistant @ x`, in quotes): that finds
+	 * the peer too, but only when no other peer's name reads the same.
+	 */
+	find(idOrName: string): PeerInfo | undefined {
+		const peers = this.peers()
+		const exact = peers.find((peer) => peer.id === idOrName || this.nameOf(peer.id) === idOrName)
+		if (exact) return exact
+
+		const loose = loosely(idOrName)
+		const alike = peers.filter((peer) => loosely(this.nameOf(peer.id)) === loose)
+		return alike.length === 1 ? alike[0] : undefined
+	}
+}
+
+/** A name without what models change when they write it: case, quotes, spaces, `_` and `-`. */
+function loosely(name: string): string {
+	return name.toLowerCase().replace(/["'`\u201c\u201d\u2018\u2019\s_-]/g, "")
 }

@@ -79,7 +79,7 @@ export class SessionEvents {
 		const lines = [...notices]
 
 		if (messages.length > 0) {
-			const names = [...new Set(messages.map((message) => this.view.nameOf(message.senderId)))]
+			const names = [...new Set(messages.map((message) => this.view.shownName(message.senderId)))]
 			const direct = messages.filter((message) => message.to !== undefined).length
 			const many = messages.length > 1
 			lines.push(
